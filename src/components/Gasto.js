@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Gasto = ({objGasto}) =>  (
+const Gasto = ({ objGasto }) => (
     <li className="gastos">
         <p>
             {objGasto.nombre}
@@ -8,5 +9,9 @@ const Gasto = ({objGasto}) =>  (
         </p>
     </li>
 )
+
+Gasto.propTypes = {
+    objGasto: PropTypes.object.isRequired
+}
 
 export default Gasto
