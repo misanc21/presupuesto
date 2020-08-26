@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Pregunta from "./components/Pregunta"
 import Formulario from "./components/Formulario"
 import Listado from "./components/Listado"
+import Control from "./components/Control"
 
 function App() {
 
@@ -10,13 +11,21 @@ function App() {
   const [mostrarPregunta, setMostrarPregunta] = useState (true)
 
   const [gastos, setGastos] = useState ([])
+  const [gasto, setGasto] = useState ({})
+  const [crearGasto, setCrearGasto] = useState(false)
 
-  const nuevoGasto = gasto => {
-    setGastos([
-      ...gastos,
-      gasto
-    ])
-  }
+  useEffect(() => {
+    if (crearGasto){
+      setGastos([
+        ...gastos,
+        gasto
+      ])
+
+      setRestante(restante - gasto.cantidad)
+
+      setCrearGasto(false)
+    }
+  }, [gasto])
 
   return (
     <div className="container">
@@ -35,12 +44,17 @@ function App() {
             <div className="row">
               <div className="one-half column">
                 <Formulario
-                  nuevoGasto = {nuevoGasto}
+                  nuevoGasto = {setGasto}
+                  setCrearGasto = {setCrearGasto}
                 />
               </div>  
               <div className="one-half column">
                 <Listado
                   gastos = {gastos}
+                />
+                <Control
+                  presupuesto = {presupuesto}
+                  restante = {restante}
                 />
               </div>
             </div>
