@@ -1,16 +1,37 @@
 import React, {useState} from 'react'
+import Error from './Error'
 
 const Formulario = () => {
-    return (
-        <form>
-            <h2>Agrega tus gastos aqui</h2>
 
+    const [nombre, setNombre] = useState('')
+    const [cantidad, setCantidad] = useState(0)
+
+    const [error, setError] = useState(false)
+
+    const agregarGasto = e => {
+        e.preventDefault()
+
+        if(cantidad < 1 || isNaN(cantidad) || nombre.trim() === ''){
+            setError(true)
+            return
+        }
+
+        
+
+    }
+
+    return (
+        <form onSubmit = {agregarGasto}>
+            <h2>Agrega tus gastos aqui</h2>
+            {error ? <Error mensaje="Datos invalidos"></Error>: null}
             <div className="campo">
                 <label>Nombre gasto</label>
                 <input
                     type="text"
                     className="u-full-width"
                     placeholder="Comida, transporte..."
+                    value = {nombre}
+                    onChange = {e => setNombre(e.target.value)}
                 />
             </div>
 
@@ -20,6 +41,8 @@ const Formulario = () => {
                     type="number"
                     className="u-full-width"
                     placeholder="inserta la cantidad"
+                    value = {cantidad}
+                    onChange = {e => setCantidad(e.target.value)}
                 />
             </div>
 
