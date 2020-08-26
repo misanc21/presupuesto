@@ -8,6 +8,15 @@ function App() {
   const [restante, setRestante] = useState(0)
   const [mostrarPregunta, setMostrarPregunta] = useState (true)
 
+  const [gastos, setGastos] = useState ([])
+
+  const nuevoGasto = gasto => {
+    setGastos([
+      ...gastos,
+      gasto
+    ])
+  }
+
   return (
     <div className="container">
       <header>
@@ -24,7 +33,9 @@ function App() {
           (
             <div className="row">
               <div className="one-half column">
-                <Formulario/>
+                <Formulario
+                  nuevoGasto = {nuevoGasto}
+                />
               </div>  
               <div className="one-half column">
                 3
